@@ -20,8 +20,6 @@ build:
     - docker push ${CONTAINER_IMAGE}
     
 deploy:
-  services:
-  - docker:dind
   stage: deploy
   tags:
     - cluster
