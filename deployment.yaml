@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: glassfish
-          image: kaiiiiii/glassfish:latest
+          image: kaiiiiii/glassfish:<VERSION>
           ports:
             - containerPort: 8080
           livenessProbe:
