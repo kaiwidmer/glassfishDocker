@@ -4,6 +4,7 @@ services:
 
 stages:
   - build
+  - deploy
 
 variables:
   CONTAINER_IMAGE: kaiiiiii/glassfish:${CI_COMMIT_SHORT_SHA}
@@ -16,3 +17,13 @@ build:
     - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
     - docker tag ${CONTAINER_IMAGE} kaiiiiii/glassfish:latest
     - docker push ${CONTAINER_IMAGE}
+    
+deploy:
+  stage: deploy
+  image: dtzar/helm-kubectl
+  tags:
+    - cluster
+    - kubernetes
+  script:
+    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" deployment.yaml
+    - kubectl apply -f deployment.yaml
