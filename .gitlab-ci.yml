@@ -1,4 +1,4 @@
-image: docker:latest
+
 services:
   - docker:dind
 
@@ -10,6 +10,7 @@ variables:
   CONTAINER_IMAGE: kaiiiiii/glassfish:${CI_COMMIT_SHORT_SHA}
 
 build:
+  image: docker:latest
   stage: build
   script:
     - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
@@ -20,7 +21,6 @@ build:
     
 deploy:
   stage: deploy
-  image: dtzar/helm-kubectl
   tags:
     - cluster
     - kubernetes
